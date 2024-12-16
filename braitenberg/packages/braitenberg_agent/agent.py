@@ -25,7 +25,7 @@ from solution.preprocessing import preprocess
 # TODO edit this Config class ! Play with different gain and const values
 @dataclass
 class BraitenbergAgentConfig:
-    gain: float = 0.3
+    gain: float = 0.2
     const: float = 0.1
 
 
@@ -79,6 +79,8 @@ class BraitenbergAgent:
         # now we just compute the activation of our sensors
         l = float(np.sum(P * self.left))
         r = float(np.sum(P * self.right))
+        # l = float(np.mean(P * self.left))
+        # r = float(np.mean(P * self.right))
 
         # These are big numbers -- we want to normalize them.
         # We normalize them using the history
@@ -88,15 +90,24 @@ class BraitenbergAgent:
         self.r_max = max(r, self.r_max)
         self.l_min = min(l, self.l_min)
         self.r_min = min(r, self.r_min)
+        print(f"self.l_max: {self.l_max:.2f} self.l_min: {self.l_min:.2f}")
+        print(f"self.r_max: {self.r_max:.2f} self.r_min: {self.r_min:.2f}")
 
         # now rescale from 0 to 1
         ls = rescale(l, self.l_min, self.l_max)
         rs = rescale(r, self.r_min, self.r_max)
+        # ls = l
+        # rs = r
 
         gain = self.config.gain
         const = self.config.const
         pwm_left = const + ls * gain
         pwm_right = const + rs * gain
+
+        # pwm_left = np.clip(pwm_left, -1.0, 1.0)
+        # pwm_right = np.clip(pwm_right, -1.0, 1.0)
+
+        print(f"ls: {ls:.2f} rs: {rs:.2f} -> pwm_left: {pwm_left:.2f} pwm_right: {pwm_right:.2f}")
 
         return pwm_left, pwm_right
 
