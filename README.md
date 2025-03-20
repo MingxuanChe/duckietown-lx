@@ -3,6 +3,17 @@
 </p>
 
 # **Duckietown Learning Experiences (LX) - MOOC Exercises**
+# Note 20250320
+
+I have successfully completed the exercises and earned the [certificate](https://courses.edx.org/certificates/88b2cf688c9b4f49ac841ee050727472).
+
+The exercises covered the following topics:
+- System modeling and PID control
+- Visual motor servoing
+- Object detection using convolutional neural networks (CNNs)
+- State estimation with Kalman filters and histogram filters
+- Collision detection and planning
+
 
 # About this repository
 
